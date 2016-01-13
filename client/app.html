@@ -1,0 +1,49 @@
+<template name="appBody">
+	{{> yield }}
+</template>
+
+<template name="hello">
+    <div class="tinder viewport">
+    	<!-- card stack -->
+        <div class="tinder stack">
+
+        	<!-- card -->
+            <div class="tinder card">
+            	<div class="photo" style="background-image: url('/assets/img/profile/boat.jpg');"></div>
+            	<div class="content">
+	            	<h1 class="name">Alexander, <span class="age">27</span></h1>
+	            	<h2 class="info">Technical University of Denmark</h2>
+	            	<h2 class="info">IT University of Copenhagen</h2>
+            	</div>
+            </div>
+
+        	<!-- card -->
+            <div class="tinder card">
+            	<div class="photo" style="background-image: url('/assets/img/profile/boat.jpg');"></div>
+            	<div class="content">
+	            	<h1 class="name">Alexander, <span class="age">27</span></h1>
+	            	<h2 class="info">Technical University of Denmark</h2>
+	            	<h2 class="info">IT University of Copenhagen</h2>
+            	</div>
+            </div>
+
+        </div>
+
+        <!-- action buttons -->
+        <div class="tinder actions">
+			<div class="tinder button small" style="margin-right:-5px;">
+			    <div class="tinder icon circular revert transition shrink"></div>
+			</div>
+			<div class="tinder button large" style="margin: 0px -5px;">
+			    <div class="tinder icon circular remove transition shrink"></div>
+			</div>
+			<div class="tinder button large" style="margin: 0px -5px;">
+			    <div class="tinder icon circular like transition shrink"></div>
+			</div>
+			<div class="tinder button small" style="margin-left:-5px;">
+			    <div class="tinder icon circular super-like transition shrink"></div>
+			</div>
+		</div>
+
+    </div>
+</template>
