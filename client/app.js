@@ -1,27 +1,35 @@
-
 var _IN_DECK = [];
-var _OUT_OF_DECK = [];
+var _COUNTER = 0;
 Template.hello.onRendered(function() {
+    // Just to ensure that we get the data from the latests rendering
+    _IN_DECK = [];
+    _COUNTER = 0;
+
 
     /*** STACK SETUP/CONFIGURATION **/
 
     // init the stack object
     var stack = gajus.Swing.Stack({
         minThrowOutDistance: 750,
-        throwOutConfidence: function (offset, element) {
+        throwOutConfidence: function(offset, element) {
             return Math.min(Math.abs(offset) / element.offsetWidth * 2, 1);
         }
     });
 
-    _IN_DECK = [];
-    _OUT_OF_DECK = [];
-
     // find all the card elements and add the swing effect
-    [].forEach.call(document.querySelectorAll('.stack .card'), function(targetElement) {
-        var card = stack.createCard(targetElement);
-        _IN_DECK.push(card);
-        // additional style for extra style
-        targetElement.classList.add('in-deck');
+    $('.tinder .card').each(function() {
+        var elm = $(this);
+        var card = stack.createCard(elm[0]);
+        elm.addClass('in-deck');
+
+        // Add the nasty data-sort attribute to perform the hack
+        elm.attr('data-sort', _COUNTER);
+
+        _IN_DECK.push({
+            card: card,
+            like: true
+        });
+        _COUNTER++;
     });
 
 
@@ -30,16 +38,15 @@ Template.hello.onRendered(function() {
 
     // throw the card out of stack event trigger
     stack.on('throwout', function(e) {
-        console.log(e);
         // left = 0, right = 1
         var like = e.throwDirection == 1;
         if (like) {
-            $('.tinder.actions .button .like').trigger("likeswipe", like);
+            $(e.target).trigger("likeswipe", like);
         } else {
-            $('.tinder.actions .button .remove').trigger("removeswipe", like);
+            $(e.target).trigger("removeswipe", like);
         }
 
-        e.target.classList.remove('in-deck');
+        $(e.target).removeClass('in-deck');
     });
 
     // throw the card into the stack event trigger
@@ -47,7 +54,16 @@ Template.hello.onRendered(function() {
         // left = 0, right = 1
         //var like = e.throwDirection == 1;
 
-        e.target.classList.add('in-deck');
+        $(e.target).addClass('in-deck');
+
+        // Ugly hack to keep track of the correct order when reverting
+        // Otherwise the cards will overlap incorrectly
+        var res = $('.tinder .card').sort(function(a, b) {
+            var contentA = $(a).attr('data-sort');
+            var contentB = $(b).attr('data-sort');
+            return (contentA < contentB) ? -1 : (contentA > contentB) ? 1 : 0;
+        });
+        $('.tinder.stack').html(res);
     });
 
 
@@ -90,7 +106,7 @@ var AppUtils = {
 
         return maxHeight;
     },
-    WidestElement: function(selector){
+    WidestElement: function(selector) {
         // Get an array of all element widths
         var elementWidths = $(selector).map(function() {
             return $(this).width();
@@ -110,60 +126,58 @@ Template.hello.helpers({
 
 Template.hello.events({
     'click .tinder.actions .button .revert': function(event, template) {
-        var card = _OUT_OF_DECK[_OUT_OF_DECK.length - 1];
-        if (!!card){
-            _OUT_OF_DECK.pop();
-            var state = card.like ? gajus.Swing.Card.DIRECTION_RIGHT : gajus.Swing.Card.DIRECTION_LEFT;
-            card.card.throwIn(state, 0);
-            _IN_DECK.push(card.card);
-        }
-        console.log(_OUT_OF_DECK, _IN_DECK);
+        if (_COUNTER >= _IN_DECK.length)
+            return;
+
+        _IN_DECK[_COUNTER].card.throwIn(_IN_DECK[_COUNTER].like ? gajus.Swing.Card.DIRECTION_RIGHT : gajus.Swing.Card.DIRECTION_LEFT, 0);
+        _COUNTER++;
     },
     'click .tinder.actions .button .like': function(event, template) {
-        var card = _IN_DECK[_IN_DECK.length - 1];
-        if (!!card){
-            card.throwOut(gajus.Swing.Card.DIRECTION_RIGHT, 0);
-        }
+        if (_COUNTER == 0)
+            return;
+
+        _IN_DECK[_COUNTER - 1].card.throwOut(gajus.Swing.Card.DIRECTION_RIGHT, 0);
     },
     'likeswipe': function(event, template) {
-        var card = _IN_DECK[_IN_DECK.length - 1];
-        if (!!card){
-            _OUT_OF_DECK.push({
-                card: _IN_DECK.pop(),
-                like: true
-            });
-        }
-        console.log(_OUT_OF_DECK, _IN_DECK);
+        if (_COUNTER == 0)
+            return;
+
+        _IN_DECK[_COUNTER - 1].like = true;
+        _COUNTER--;
     },
     'click .tinder.actions .button .remove': function(event, template) {
-        var card = _IN_DECK[_IN_DECK.length - 1];
-        if (!!card){
-            card.throwOut(gajus.Swing.Card.DIRECTION_LEFT, 0);
-        }
+        if (_COUNTER == 0)
+            return;
+
+        _IN_DECK[_COUNTER - 1].card.throwOut(gajus.Swing.Card.DIRECTION_LEFT, 0);
     },
-    'removeswipe': function(event, template){
-        var card = _IN_DECK[_IN_DECK.length - 1];
-        if (!!card){
-            _OUT_OF_DECK.push({
-                card: _IN_DECK.pop(),
-                like: false
-            });
-        }
-        console.log(_OUT_OF_DECK, _IN_DECK);
+    'removeswipe': function(event, template) {
+        if (_COUNTER == 0)
+            return;
+
+        _IN_DECK[_COUNTER - 1].like = false;
+        _COUNTER--;
     },
     'onresize .tinder .card, onload .tinder .card': function(event, template) {
+        // MMM... delicious width/height calculations
         var maxCardPhotoWidth = AppUtils.WidestElement('.tinder .card .photo');
         $('.tinder .card .photo').css('height', maxCardPhotoWidth);
 
         var maxCardHeight = AppUtils.TallestElement('.tinder .card');
         $('.tinder .stack').css('height', maxCardHeight);
 
-        var maxContainerWidth = AppUtils.WidestElement('#container') - 2*15;
+        var maxContainerWidth = AppUtils.WidestElement('#container') - 2 * 15;
         $('.tinder.viewport').css('width', maxContainerWidth);
 
         var maxLargeButtonSize = maxContainerWidth / 4.5;
         var maxSmallButtonSize = maxLargeButtonSize / 2;
-        $('.tinder .actions .button.large').css({width: maxLargeButtonSize, height: maxLargeButtonSize});
-        $('.tinder .actions .button.small').css({width: maxSmallButtonSize, height: maxSmallButtonSize});
+        $('.tinder .actions .button.large').css({
+            width: maxLargeButtonSize,
+            height: maxLargeButtonSize
+        });
+        $('.tinder .actions .button.small').css({
+            width: maxSmallButtonSize,
+            height: maxSmallButtonSize
+        });
     }
 });
