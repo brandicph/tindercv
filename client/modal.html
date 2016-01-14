@@ -20,11 +20,19 @@
 <template name="modalProfile">
     <i class="close icon"></i>
     <div class="ui fluid image">
-        <img src="/assets/img/profile/boat.jpg">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {{#each profile.images}}
+                <div class="swiper-slide" style="background-image:url('{{this}}')"></div>
+                {{/each}}
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
     </div>
     <div class="header">
         <h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1> {{#each profile.studies}}
         <h2 class="info">{{this}}</h2> {{/each}}
+        <h3 class="distance">near {{profile.address.city}}</h3>
     </div>
     <div class="content centered">
         {{{profile.description}}}

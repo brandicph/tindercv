@@ -1,9 +1,9 @@
 Template.modal.onRendered(function() {
-	var _self = this;
+    var _self = this;
     var modal = $(this.firstNode);
 
     modal.modal({
-    	context: _self.data.modal.context,
+        context: _self.data.modal.context,
         autofocus: false,
         observeChanges: true,
         detachable: true,
@@ -32,4 +32,28 @@ Template.modal.onRendered(function() {
 
 Template.modal.onDestroyed(function() {
 
+});
+
+Template.modalProfile.onRendered(function() {
+    Meteor.defer(function(){
+        var swiper = new Swiper('.swiper-container', {
+            observer: true,
+            autoHeight: true,
+            pagination: '.swiper-pagination',
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            slidesPerView: 'auto',
+            paginationClickable: true,
+            spaceBetween: 0,
+            keyboardControl: true,
+            initialSlide: 0
+        });
+    });
+});
+
+
+Template.modalProfile.events({
+    'click .swiper-container': function(event, template){
+        $('.modal.profile').modal('hide');
+    }
 });
