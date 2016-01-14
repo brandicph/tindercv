@@ -1,65 +1,80 @@
 <template name="appBody">
-	<div id="container">
-		{{> yield }}
-	</div>
+    <div id="container">
+        {{> yield }}
+
+        {{> modalItsAMatch }}
+    </div>
+</template>
+
+<template name="modalItsAMatch">
+    <div class="ui tiny basic modal itsAMatch">
+        <div class="header">
+            It's a Match
+            <div class="sub">You and Alexander liked each other.</div>
+        </div>
+        <div class="content centered">
+            <div class="tinder itsAMatch photo user" style="background-image: url('/assets/img/icons/user.png');"></div>
+            <div class="tinder itsAMatch photo" style="background-image: url('/assets/img/profile/boat.jpg');"></div>
+        </div>
+        <div class="actions">
+            <div class="fluid ui large button inverted approve">
+                <i class="comment icon"></i> Send a Message
+            </div>
+            <div class="fluid ui large button inverted cancel">
+                <i class="user icon"></i> Keep on Playing
+            </div>
+        </div>
+    </div>
 </template>
 
 <template name="hello">
     <div class="tinder viewport">
-    	<!-- card stack -->
-        <div class="tinder stack">
-
-        	<!-- card -->
-            <div class="tinder card">
-            	<div class="photo" style="background-image: url('/assets/img/profile/bike.jpg');"></div>
-            	<div class="content">
-	            	<h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1>
-	            	{{#each profile.studies}}
-	            	<h2 class="info">{{this}}</h2>
-	            	{{/each}}
-            	</div>
-            </div>
-
-        	<!-- card -->
-            <div class="tinder card">
-            	<div class="photo" style="background-image: url('/assets/img/profile/handstand.jpg');"></div>
-            	<div class="content">
-	            	<h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1>
-	            	{{#each profile.studies}}
-	            	<h2 class="info">{{this}}</h2>
-	            	{{/each}}
-            	</div>
-            </div>
-
-        	<!-- card -->
-            <div class="tinder card">
-            	<div class="photo" style="background-image: url('/assets/img/profile/boat.jpg');"></div>
-            	<div class="content">
-	            	<h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1>
-	            	{{#each profile.studies}}
-	            	<h2 class="info">{{this}}</h2>
-	            	{{/each}}
-            	</div>
-            </div>
-
-
+        <!-- radar indicator -->
+        <div class="tinder radar">
+            <div class="photo" style="background-image: url('/assets/img/icons/user.png');"></div>
+            <div class="text">Finding full-stacker near you...</div>
         </div>
-
+        <!-- card stack -->
+        <div class="tinder stack">
+            <!-- card -->
+            <div class="tinder card">
+                <div class="photo" style="background-image: url('/assets/img/profile/bike.jpg');"></div>
+                <div class="content">
+                    <h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1> {{#each profile.studies}}
+                    <h2 class="info">{{this}}</h2> {{/each}}
+                </div>
+            </div>
+            <!-- card -->
+            <div class="tinder card">
+                <div class="photo" style="background-image: url('/assets/img/profile/handstand.jpg');"></div>
+                <div class="content">
+                    <h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1> {{#each profile.studies}}
+                    <h2 class="info">{{this}}</h2> {{/each}}
+                </div>
+            </div>
+            <!-- card -->
+            <div class="tinder card">
+                <div class="photo" style="background-image: url('/assets/img/profile/boat.jpg');"></div>
+                <div class="content">
+                    <h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1> {{#each profile.studies}}
+                    <h2 class="info">{{this}}</h2> {{/each}}
+                </div>
+            </div>
+        </div>
         <!-- action buttons -->
         <div class="tinder actions">
-			<div class="tinder button small" style="margin-right:-5px;">
-			    <div class="tinder icon circular revert transition shrink"></div>
-			</div>
-			<div class="tinder button large" style="margin: 0px -5px;">
-			    <div class="tinder icon circular remove transition shrink"></div>
-			</div>
-			<div class="tinder button large" style="margin: 0px -5px;">
-			    <div class="tinder icon circular like transition shrink"></div>
-			</div>
-			<div class="tinder button small" style="margin-left:-5px;">
-			    <div class="tinder icon circular super-like transition shrink"></div>
-			</div>
-		</div>
-
+            <div class="tinder button small" style="margin-right:-5px;">
+                <div class="tinder icon circular revert transition shrink"></div>
+            </div>
+            <div class="tinder button large" style="margin: 0px -5px;">
+                <div class="tinder icon circular remove transition shrink"></div>
+            </div>
+            <div class="tinder button large" style="margin: 0px -5px;">
+                <div class="tinder icon circular like transition shrink"></div>
+            </div>
+            <div class="tinder button small" style="margin-left:-5px;">
+                <div class="tinder icon circular super-like transition shrink"></div>
+            </div>
+        </div>
     </div>
 </template>

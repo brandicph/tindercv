@@ -1,7 +1,7 @@
 var _IN_DECK = [];
 var _COUNTER = 0;
 Template.hello.onRendered(function() {
-    // Just to ensure that we get the data from the latests rendering
+    // Just to ensure that we only process the data from the latests rendering
     _IN_DECK = [];
     _COUNTER = 0;
 
@@ -32,41 +32,39 @@ Template.hello.onRendered(function() {
         _COUNTER++;
     });
 
+    // hide the stack for radar effect
+    $('.tinder.stack').css({
+        visibility: 'hidden'
+    });
+
+    // disable selection to prevent crazy blue highlights all over the place
+    $('.tinder.viewport').disableSelection();
 
 
     /** STACK EVENT TRIGGERS **/
 
     // throw the card out of stack event trigger
     stack.on('throwout', function(e) {
-        // left = 0, right = 1
-        var like = e.throwDirection == 1;
-        if (like) {
-            $(e.target).trigger("likeswipe", like);
-        } else {
-            $(e.target).trigger("removeswipe", like);
-        }
-
         $(e.target).removeClass('in-deck');
+
+        // trigger the swipe events using jquery to trigger the template events
+        var like = e.throwDirection == gajus.Swing.Card.DIRECTION_RIGHT;
+        $(e.target).trigger(like ? "likeswipe" : "removeswipe", like);
     });
 
     // throw the card into the stack event trigger
     stack.on('throwin', function(e) {
-        // left = 0, right = 1
-        //var like = e.throwDirection == 1;
-
         $(e.target).addClass('in-deck');
 
         // Ugly hack to keep track of the correct order when reverting
         // Otherwise the cards will overlap incorrectly
-        var res = $('.tinder .card').sort(function(a, b) {
+        var res = $('.tinder .card.in-deck').sort(function(a, b) {
             var contentA = $(a).attr('data-sort');
             var contentB = $(b).attr('data-sort');
             return (contentA < contentB) ? -1 : (contentA > contentB) ? 1 : 0;
         });
         $('.tinder.stack').html(res);
     });
-
-
 
 
     /** WINDOW EVENT TRIGGERS **/
@@ -76,13 +74,22 @@ Template.hello.onRendered(function() {
         $('.tinder .card').trigger("onresize", event);
     });
 
+
     // onload trigger (Meteor.defer ensures to trigger the event when done rendering)
     Meteor.defer(function(event) {
         $('.tinder .card').trigger("onload", event);
+
+        // show the 'finding full-stacker' loader for some time, before showing stack
+        setTimeout(function() {
+            $('.tinder.stack').css({
+                visibility: 'visible'
+            });
+        }, 3000);
     });
 
 
 });
+
 
 
 
@@ -118,7 +125,16 @@ var AppUtils = {
 
         return maxWidth;
     }
-}
+};
+
+(function($) {
+    $.fn.disableSelection = function() {
+        return this
+            .attr('unselectable', 'on')
+            .css('user-select', 'none')
+            .on('selectstart', false);
+    };
+})(jQuery);
 
 Template.hello.helpers({
 
@@ -144,6 +160,25 @@ Template.hello.events({
 
         _IN_DECK[_COUNTER - 1].like = true;
         _COUNTER--;
+
+        // IT'S DEFINITELY A MATCH!!
+        setTimeout(function(){
+            $('.modal.itsAMatch').modal({
+                observeChanges: true,
+                detachable: false,
+                context: '#container',
+                closable: false,
+                onApprove: function($element){
+                    console.log('Go the the message section...');
+                    return false;
+                },
+                onDeny: function($element){
+                    console.log('Going back to the stack');
+                    return true;
+                }
+            }).modal('show');
+        }, 750);
+
     },
     'click .tinder.actions .button .remove': function(event, template) {
         if (_COUNTER == 0)
@@ -169,7 +204,7 @@ Template.hello.events({
         var maxContainerWidth = AppUtils.WidestElement('#container') - 2 * 15;
         $('.tinder.viewport').css('width', maxContainerWidth);
 
-        var maxLargeButtonSize = maxContainerWidth / 4.5;
+        var maxLargeButtonSize = maxContainerWidth / 3;
         var maxSmallButtonSize = maxLargeButtonSize / 2;
         $('.tinder .actions .button.large').css({
             width: maxLargeButtonSize,
