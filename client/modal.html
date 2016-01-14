@@ -19,6 +19,9 @@
 
 <template name="modalProfile">
     <i class="close icon"></i>
+    <div class="ui fluid image">
+        <img src="/assets/img/profile/boat.jpg">
+    </div>
     <div class="header">
         <h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1> {{#each profile.studies}}
         <h2 class="info">{{this}}</h2> {{/each}}

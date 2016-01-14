@@ -6,7 +6,7 @@ Template.modal.onRendered(function() {
     	context: _self.data.modal.context,
         autofocus: false,
         observeChanges: true,
-        detachable: false,
+        detachable: true,
         onApprove: _self.data.modal.onApprove,
         onDeny: _self.data.modal.onDeny,
         onShow: function() {

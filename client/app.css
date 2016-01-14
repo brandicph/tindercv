@@ -359,7 +359,14 @@ body {
 }
 
 
+.ui.modal.profile .image {
+    overflow:hidden;
+}
 
+.ui.modal.profile .content {
+    color: #827F7C;
+    font-family: 'Varela Round', sans-serif;
+}
 
 .ui.modal.profile h1.name {
     color: #454447;
