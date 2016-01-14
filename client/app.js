@@ -1,8 +1,8 @@
-var _IN_DECK = [];
+var _DECK = [];
 var _COUNTER = 0;
 Template.hello.onRendered(function() {
     // Just to ensure that we only process the data from the latests rendering
-    _IN_DECK = [];
+    _DECK = [];
     _COUNTER = 0;
 
 
@@ -25,7 +25,7 @@ Template.hello.onRendered(function() {
         // Add the nasty data-sort attribute to perform the hack
         elm.attr('data-sort', _COUNTER);
 
-        _IN_DECK.push({
+        _DECK.push({
             card: card,
             like: true
         });
@@ -58,7 +58,8 @@ Template.hello.onRendered(function() {
 
         // Ugly hack to keep track of the correct order when reverting
         // Otherwise the cards will overlap incorrectly
-        var res = $('.tinder .card.in-deck').sort(function(a, b) {
+        // I might make sense to add the class '.in-deck' but no.. swing is messy
+        var res = $('.tinder .card').sort(function(a, b) {
             var contentA = $(a).attr('data-sort');
             var contentB = $(b).attr('data-sort');
             return (contentA < contentB) ? -1 : (contentA > contentB) ? 1 : 0;
@@ -124,6 +125,64 @@ var AppUtils = {
         var maxWidth = Math.max.apply(null, elementWidths);
 
         return maxWidth;
+    },
+    RefillStack: function(){
+        if (_COUNTER == 0){
+            setTimeout(function(){
+                if (_COUNTER == 0){
+                    for (var i = 0; i < _DECK.length; i++){
+                        _DECK[i].card.throwIn(_DECK[i].like ? gajus.Swing.Card.DIRECTION_RIGHT : gajus.Swing.Card.DIRECTION_LEFT, 0);
+                        _COUNTER++;
+                    }
+                }
+            }, 3000);
+        }
+    },
+    OpenModal: function(params){
+        var template = Template['modal'];
+        _.extend({}, params, {template: template});
+
+        var parentNode = $(params.modal.context)[0];
+        Blaze.renderWithData(template, params, parentNode);
+    },
+    ShowMatch: function(imageid, data){
+        AppUtils.OpenModal({
+            modal: {
+                template: 'modalItsAMatch',
+                classes: 'tiny basic itsAMatch',
+                context: '#container',
+                onApprove: function($element){
+                    AppUtils.ShowProfile(data);
+                    return true;
+                },
+                onDeny: function($element){
+                    console.log('Going back to the stack');
+                    return true;
+                }
+            },
+            data: {
+                name: data.profile.firstname,
+                image: data.profile.images[imageid]
+            }
+        });
+    },
+    ShowProfile: function(data){
+        AppUtils.OpenModal({
+            modal: {
+                template: 'modalProfile',
+                classes: 'tiny profile',
+                context: '#container',
+                onApprove: function($element) {
+                    console.log('Go the the message section...');
+                    return false;
+                },
+                onDeny: function($element) {
+                    console.log('Going back to the stack');
+                    return true;
+                }
+            },
+            data: data
+        });
     }
 };
 
@@ -142,56 +201,49 @@ Template.hello.helpers({
 
 Template.hello.events({
     'click .tinder.actions .button .revert': function(event, template) {
-        if (_COUNTER >= _IN_DECK.length)
+        if (_COUNTER >= _DECK.length)
             return;
 
-        _IN_DECK[_COUNTER].card.throwIn(_IN_DECK[_COUNTER].like ? gajus.Swing.Card.DIRECTION_RIGHT : gajus.Swing.Card.DIRECTION_LEFT, 0);
+        _DECK[_COUNTER].card.throwIn(_DECK[_COUNTER].like ? gajus.Swing.Card.DIRECTION_RIGHT : gajus.Swing.Card.DIRECTION_LEFT, 0);
         _COUNTER++;
     },
     'click .tinder.actions .button .like': function(event, template) {
         if (_COUNTER == 0)
             return;
 
-        _IN_DECK[_COUNTER - 1].card.throwOut(gajus.Swing.Card.DIRECTION_RIGHT, 0);
+        _DECK[_COUNTER - 1].card.throwOut(gajus.Swing.Card.DIRECTION_RIGHT, 0);
     },
     'likeswipe': function(event, template) {
         if (_COUNTER == 0)
             return;
 
-        _IN_DECK[_COUNTER - 1].like = true;
-        _COUNTER--;
-
+        _DECK[_COUNTER - 1].like = true;
+        
+        var _self = this;
+        var imageId = _COUNTER - 1;
         // IT'S DEFINITELY A MATCH!!
         setTimeout(function(){
-            $('.modal.itsAMatch').modal({
-                observeChanges: true,
-                detachable: false,
-                context: '#container',
-                closable: false,
-                onApprove: function($element){
-                    console.log('Go the the message section...');
-                    return false;
-                },
-                onDeny: function($element){
-                    console.log('Going back to the stack');
-                    return true;
-                }
-            }).modal('show');
-        }, 750);
+            AppUtils.ShowMatch(imageId, _self);
+        }, 500);
 
+        _COUNTER--;
+
+        AppUtils.RefillStack();
     },
     'click .tinder.actions .button .remove': function(event, template) {
         if (_COUNTER == 0)
             return;
 
-        _IN_DECK[_COUNTER - 1].card.throwOut(gajus.Swing.Card.DIRECTION_LEFT, 0);
+        _DECK[_COUNTER - 1].card.throwOut(gajus.Swing.Card.DIRECTION_LEFT, 0);
     },
     'removeswipe': function(event, template) {
         if (_COUNTER == 0)
             return;
 
-        _IN_DECK[_COUNTER - 1].like = false;
+        _DECK[_COUNTER - 1].like = false;
         _COUNTER--;
+
+        AppUtils.RefillStack();
     },
     'onresize .tinder .card, onload .tinder .card': function(event, template) {
         // MMM... delicious width/height calculations

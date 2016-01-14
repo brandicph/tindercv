@@ -1,0 +1,35 @@
+<template name="modalItsAMatch">
+    <div class="header">
+        It's a Match
+        <div class="sub">You and {{name}} liked each other.</div>
+    </div>
+    <div class="content centered">
+        <div class="tinder itsAMatch photo user" style="background-image: url('/assets/img/icons/user.png');"></div>
+        <div class="tinder itsAMatch photo" style="background-image: url('{{image}}');"></div>
+    </div>
+    <div class="actions">
+        <div class="fluid ui large button inverted approve">
+            <i class="comment icon"></i> Send a Message
+        </div>
+        <div class="fluid ui large button inverted cancel">
+            <i class="user icon"></i> Keep on Playing
+        </div>
+    </div>
+</template>
+
+<template name="modalProfile">
+    <i class="close icon"></i>
+    <div class="header">
+        <h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1> {{#each profile.studies}}
+        <h2 class="info">{{this}}</h2> {{/each}}
+    </div>
+    <div class="content centered">
+        {{{profile.description}}}
+    </div>
+</template>
+
+<template name="modal">
+	<div class="ui {{this.modal.classes}} modal">
+		{{> UI.dynamic template=this.modal.template data=this.data}}
+	</div>
+</template>

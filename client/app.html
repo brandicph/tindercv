@@ -1,29 +1,23 @@
 <template name="appBody">
+    <div class="wrapper-welcome">
+        <div class="title-welcome">Tinder CV</div>
+        <div class="description-welcome">Tinder CV was made by <a href="http://abrandi.dk" target="_blank">Alexander Brandi</a> to present his CV in a new and fun way, build on top of the <a href="https://www.meteor.com" target="_blank">Meteor</a> framework. The entire app is less than 1,000 lines of JavaScript. View the source on <a href="https://github.com/brandicph/tindercv" target="_blank">GitHub</a>.
+        </div>
+        <div class="description-welcome">
+            The app is designed with inspiration from the wonderful dating-app/game Tinder.
+        </div>
+        <div class="description-welcome">
+            You can use this simple application as inspiration on how present your own CV or as inspiration for your new/upcoming Meteor project.
+        </div>
+        <div class="description-welcome">
+            ... also, this application is will hopefully give the Tinder team a great laugh to see me as a possible candidate for their full-stack job.
+        </div>
+    </div>
+
     <div id="container">
         {{> yield }}
 
-        {{> modalItsAMatch }}
-    </div>
-</template>
-
-<template name="modalItsAMatch">
-    <div class="ui tiny basic modal itsAMatch">
-        <div class="header">
-            It's a Match
-            <div class="sub">You and Alexander liked each other.</div>
-        </div>
-        <div class="content centered">
-            <div class="tinder itsAMatch photo user" style="background-image: url('/assets/img/icons/user.png');"></div>
-            <div class="tinder itsAMatch photo" style="background-image: url('/assets/img/profile/boat.jpg');"></div>
-        </div>
-        <div class="actions">
-            <div class="fluid ui large button inverted approve">
-                <i class="comment icon"></i> Send a Message
-            </div>
-            <div class="fluid ui large button inverted cancel">
-                <i class="user icon"></i> Keep on Playing
-            </div>
-        </div>
+        {{> yield 'subTemplate'}}
     </div>
 </template>
 
@@ -38,7 +32,7 @@
         <div class="tinder stack">
             <!-- card -->
             <div class="tinder card">
-                <div class="photo" style="background-image: url('/assets/img/profile/bike.jpg');"></div>
+                <div class="photo" style="background-image: url('{{profile.images.[0]}}');"></div>
                 <div class="content">
                     <h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1> {{#each profile.studies}}
                     <h2 class="info">{{this}}</h2> {{/each}}
@@ -46,7 +40,7 @@
             </div>
             <!-- card -->
             <div class="tinder card">
-                <div class="photo" style="background-image: url('/assets/img/profile/handstand.jpg');"></div>
+                <div class="photo" style="background-image: url('{{profile.images.[1]}}');"></div>
                 <div class="content">
                     <h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1> {{#each profile.studies}}
                     <h2 class="info">{{this}}</h2> {{/each}}
@@ -54,7 +48,7 @@
             </div>
             <!-- card -->
             <div class="tinder card">
-                <div class="photo" style="background-image: url('/assets/img/profile/boat.jpg');"></div>
+                <div class="photo" style="background-image: url('{{profile.images.[2]}}');"></div>
                 <div class="content">
                     <h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1> {{#each profile.studies}}
                     <h2 class="info">{{this}}</h2> {{/each}}

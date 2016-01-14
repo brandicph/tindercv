@@ -358,6 +358,37 @@ body {
     background-color: #ECECEC;
 }
 
+
+
+
+.ui.modal.profile h1.name {
+    color: #454447;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 19px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: bold;
+    line-height: 15px;
+    margin: 13px 0px 8px 0px;
+}
+
+.ui.modal.profile h1.name .age {
+    font-weight: 100;
+}
+
+.ui.modal.profile h2.info {
+    color: #827F7C;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: bold;
+    line-height: 13px;
+    margin: 7px 0px 5px 0px;
+    padding: 0;
+}
+
+
 @media only screen and (min-width: 1920px) {
     .ui.tiny.modal {
         width: 380px;
