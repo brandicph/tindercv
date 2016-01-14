@@ -266,5 +266,8 @@ Template.hello.events({
             width: maxSmallButtonSize,
             height: maxSmallButtonSize
         });
+    },
+    'click .tinder.card .photo': function(event, template){
+        AppUtils.ShowProfile(this);
     }
 });
