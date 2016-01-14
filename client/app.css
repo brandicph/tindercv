@@ -34,18 +34,19 @@ body {
 }
 
 .tinder.viewport {
-	width:100%;
+	width:auto;
 	height: 100%;
 	max-width: 500px;
 	max-height: 590px;
 	display: inline-block;
 	position: relative;
+    margin: 15px;
 }
 
 .tinder.stack {
     width: 100%;
     height: 590px;
-    background: #ED5D52;
+    background: #f3f3f3;
     border-radius: 10px;
     margin-bottom: 15px;
     position: relative;
@@ -97,14 +98,16 @@ body {
 }
 
 .tinder.button.small {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     vertical-align: top;
+    padding: 10px;
 }
 
 .tinder.button.large {
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
+    padding: 13px;
 }
 
 .tinder.button {
@@ -159,11 +162,11 @@ body {
 
 .tinder.button .icon.revert {
 	background-image: url('/assets/img/icons/revert.png');
-    background-size: 50%;
+    background-size: 60%;
 }
 .tinder.button .icon.super-like {
 	background-image: url('/assets/img/icons/super-like.png');
-    background-size: 50%;
+    background-size: 70%;
 }
 
 .tinder.transition.grow {
@@ -184,11 +187,16 @@ body {
 
 
 .tinder.viewport div.in-deck:nth-child(3) {
-    top: 2px; transform: translate(2px, 2px) rotate(0.4deg);
+    top: 0px; /* transform: translate(2px, 2px) rotate(0.4deg); */
 }
 
 .tinder.viewport div.in-deck:nth-child(2) {
-    top: 4px; transform: translate(-4px, -2px) rotate(-1deg);
+    top: 4px; /* transform: translate(-4px, -2px) rotate(-1deg); */
+}
+
+
+.tinder.viewport div.in-deck:nth-child(1) {
+    top: 8px; /* transform: translate(-4px, -2px) rotate(-1deg); */
 }
 
 

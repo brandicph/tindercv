@@ -1,5 +1,7 @@
 <template name="appBody">
-	{{> yield }}
+	<div id="container">
+		{{> yield }}
+	</div>
 </template>
 
 <template name="hello">
@@ -9,11 +11,23 @@
 
         	<!-- card -->
             <div class="tinder card">
-            	<div class="photo" style="background-image: url('/assets/img/profile/boat.jpg');"></div>
+            	<div class="photo" style="background-image: url('/assets/img/profile/bike.jpg');"></div>
             	<div class="content">
-	            	<h1 class="name">Alexander, <span class="age">27</span></h1>
-	            	<h2 class="info">Technical University of Denmark</h2>
-	            	<h2 class="info">IT University of Copenhagen</h2>
+	            	<h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1>
+	            	{{#each profile.studies}}
+	            	<h2 class="info">{{this}}</h2>
+	            	{{/each}}
+            	</div>
+            </div>
+
+        	<!-- card -->
+            <div class="tinder card">
+            	<div class="photo" style="background-image: url('/assets/img/profile/handstand.jpg');"></div>
+            	<div class="content">
+	            	<h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1>
+	            	{{#each profile.studies}}
+	            	<h2 class="info">{{this}}</h2>
+	            	{{/each}}
             	</div>
             </div>
 
@@ -21,11 +35,13 @@
             <div class="tinder card">
             	<div class="photo" style="background-image: url('/assets/img/profile/boat.jpg');"></div>
             	<div class="content">
-	            	<h1 class="name">Alexander, <span class="age">27</span></h1>
-	            	<h2 class="info">Technical University of Denmark</h2>
-	            	<h2 class="info">IT University of Copenhagen</h2>
+	            	<h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1>
+	            	{{#each profile.studies}}
+	            	<h2 class="info">{{this}}</h2>
+	            	{{/each}}
             	</div>
             </div>
+
 
         </div>
 
