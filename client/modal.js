@@ -57,3 +57,17 @@ Template.modalProfile.events({
         $('.modal.profile').modal('hide');
     }
 });
+
+Template.modalItsAMatch.helpers({
+    currentImage: function(){
+        return this.info.profile.images[this.image];
+    }
+});
+
+Template.modalProfile.helpers({
+    orderedImages: function(){
+        var clone = this.info.profile.images.slice(0);
+        var arr = AppUtils.MoveElement(clone, this.image, 0);
+        return arr;
+    }
+});

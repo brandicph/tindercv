@@ -101,36 +101,31 @@ Template.hello.onDestroyed(function() {
 
 
 
-var AppUtils = {
-    TallestElement: function(selector) {
-        // Get an array of all element heights
-        var elementHeights = $(selector).map(function() {
-            return $(this).height();
+AppUtils = {
+    TallestWidestElement: function(selector, calcWidth){
+        // Get an array of all element heights/widths
+        var elmsWH = $(selector).map(function() {
+            return calcWidth ? $(this).width() : $(this).height();
         }).get();
 
         // Math.max takes a variable number of arguments
-        // `apply` is equivalent to passing each height as an argument
-        var maxHeight = Math.max.apply(null, elementHeights);
-
-        return maxHeight;
+        // `apply` is equivalent to passing each height/width as an argument
+        return Math.max.apply(null, elmsWH);
+    },
+    TallestElement: function(selector) {
+        return AppUtils.TallestWidestElement(selector, false);
     },
     WidestElement: function(selector) {
-        // Get an array of all element widths
-        var elementWidths = $(selector).map(function() {
-            return $(this).width();
-        }).get();
-
-        // Math.max takes a variable number of arguments
-        // `apply` is equivalent to passing each height as an argument
-        var maxWidth = Math.max.apply(null, elementWidths);
-
-        return maxWidth;
+        return AppUtils.TallestWidestElement(selector, true);
     },
-    RefillStack: function(){
-        if (_COUNTER == 0){
-            setTimeout(function(){
-                if (_COUNTER == 0){
-                    for (var i = 0; i < _DECK.length; i++){
+    RefillStack: function() {
+        // check if no more cards
+        if (_COUNTER == 0) {
+            // wait and check again, just like the MAC algorithm used in 802.11 standards
+            setTimeout(function() {
+                // if still no cards, add every card again
+                if (_COUNTER == 0) {
+                    for (var i = 0; i < _DECK.length; i++) {
                         _DECK[i].card.throwIn(_DECK[i].like ? gajus.Swing.Card.DIRECTION_RIGHT : gajus.Swing.Card.DIRECTION_LEFT, 0);
                         _COUNTER++;
                     }
@@ -138,55 +133,79 @@ var AppUtils = {
             }, 3000);
         }
     },
-    OpenModal: function(params){
+    MoveElement: function(arr, fromIndex, toIndex) {
+        // takes one array element x and moves it to y position
+        // some awesome array haxx to fiddle with the order of images
+        var element = arr[fromIndex];
+        arr.splice(fromIndex, 1);
+        arr.splice(toIndex, 0, element);
+        return arr;
+    },
+    OpenModal: function(params) {
+        // find the modal template
         var template = Template['modal'];
-        _.extend({}, params, {template: template});
+        // extend the params with the template
+        // we use this field in the modal.onRendered  for Blaze to remove it on modal.hide
+        _.extend({}, params, {
+            template: template
+        });
 
+        // #container is our parent node in most cases
         var parentNode = $(params.modal.context)[0];
+        // POKEMON: GOOOO BLAAAZE!!!!
         Blaze.renderWithData(template, params, parentNode);
     },
-    ShowMatch: function(imageid, data){
+    ShowMatch: function(imageid, data) {
         AppUtils.OpenModal({
             modal: {
                 template: 'modalItsAMatch',
                 classes: 'tiny basic itsAMatch',
                 context: '#container',
-                onApprove: function($element){
-                    AppUtils.ShowProfile(data);
+                onApprove: function($element) {
+                    // imageId is collected from the attribute data-id
+                    // since we dont have 'this'/data-context like in Meteor helpers
+                    var imageId = $element.data('id');
+                    // Show the profile if 'Send a Message'
+                    AppUtils.ShowProfile(imageId, data);
                     return true;
                 },
-                onDeny: function($element){
-                    console.log('Going back to the stack');
+                onDeny: function($element) {
+                    // just go back to the stack if 'Keep on Playing'
                     return true;
                 }
             },
             data: {
-                name: data.profile.firstname,
-                image: data.profile.images[imageid]
+                info: data,
+                image: imageid
             }
         });
     },
-    ShowProfile: function(data){
+    ShowProfile: function(imageid, data) {
         AppUtils.OpenModal({
             modal: {
                 template: 'modalProfile',
                 classes: 'tiny profile',
                 context: '#container',
                 onApprove: function($element) {
-                    console.log('Go the the message section...');
-                    return false;
+                    // not much here since we dont use the actions
+                    return true;
                 },
                 onDeny: function($element) {
-                    console.log('Going back to the stack');
+                    // not much here since we dont use the actions
                     return true;
                 }
             },
-            data: data
+            data: {
+                info: data,
+                image: imageid
+            }
         });
     }
 };
 
 (function($) {
+    // jquery extension function, that disables selection
+    // keeps everything from getting that ugly blue highlight color
     $.fn.disableSelection = function() {
         return this
             .attr('unselectable', 'on')
@@ -195,9 +214,6 @@ var AppUtils = {
     };
 })(jQuery);
 
-Template.hello.helpers({
-
-});
 
 Template.hello.events({
     'click .tinder.actions .button .revert': function(event, template) {
@@ -218,11 +234,14 @@ Template.hello.events({
             return;
 
         _DECK[_COUNTER - 1].like = true;
-        
+
         var _self = this;
         var imageId = _COUNTER - 1;
+
         // IT'S DEFINITELY A MATCH!!
-        setTimeout(function(){
+        // just wait a little to give a real-life experience
+        // ... and to prevent the swing effect to collide with the modal effect (=lagging)
+        setTimeout(function() {
             AppUtils.ShowMatch(imageId, _self);
         }, 500);
 
@@ -267,7 +286,14 @@ Template.hello.events({
             height: maxSmallButtonSize
         });
     },
-    'click .tinder.card .photo': function(event, template){
-        AppUtils.ShowProfile(this);
+    'click .tinder.card .photo': function(event, template) {
+        var target = $(event.currentTarget);
+        var imageId = target.data('id');
+        AppUtils.ShowProfile(imageId, this);
     }
+});
+
+
+Template.hello.helpers({
+
 });

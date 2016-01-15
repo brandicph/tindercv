@@ -30,7 +30,7 @@
         <div class="tinder stack">
             <!-- card -->
             <div class="tinder card">
-                <div class="photo" style="background-image: url('{{profile.images.[0]}}');"></div>
+                <div class="photo" data-id="0" style="background-image: url('{{profile.images.[0]}}');"></div>
                 <div class="content">
                     <h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1> {{#each profile.studies}}
                     <h2 class="info">{{this}}</h2> {{/each}}
@@ -38,7 +38,7 @@
             </div>
             <!-- card -->
             <div class="tinder card">
-                <div class="photo" style="background-image: url('{{profile.images.[1]}}');"></div>
+                <div class="photo" data-id="1" style="background-image: url('{{profile.images.[1]}}');"></div>
                 <div class="content">
                     <h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1> {{#each profile.studies}}
                     <h2 class="info">{{this}}</h2> {{/each}}
@@ -46,7 +46,7 @@
             </div>
             <!-- card -->
             <div class="tinder card">
-                <div class="photo" style="background-image: url('{{profile.images.[2]}}');"></div>
+                <div class="photo" data-id="2" style="background-image: url('{{profile.images.[2]}}');"></div>
                 <div class="content">
                     <h1 class="name">{{profile.firstname}}, <span class="age">{{profile.age}}</span></h1> {{#each profile.studies}}
                     <h2 class="info">{{this}}</h2> {{/each}}
