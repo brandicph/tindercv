@@ -56,6 +56,8 @@ body {
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
+
+    background-image: url('/assets/img/icons/user.png');
 }
 
 .tinder.radar .text {
@@ -300,14 +302,13 @@ body {
     /* transform: translate(-4px, -2px) rotate(-1deg); */
 }
 
-
 .ui.basic.modal.itsAMatch .content.centered {
     text-align: center;
 }
 
 .ui.basic.modal.itsAMatch .actions .button {
     margin-bottom: 15px;
-    margin-left:0px;
+    margin-left: 0px;
 }
 
 .ui.basic.modal.itsAMatch .header {
@@ -325,7 +326,6 @@ body {
     text-align: center;
     line-height: 13px;
 }
-
 
 .tinder.itsAMatch.photo {
     width: 100px;
@@ -349,18 +349,28 @@ body {
     align-items: center;
 }
 
-.tinder.itsAMatch.photo:nth-child(1){
-    margin-right:20px;
+.tinder.itsAMatch.photo.mr {
+    margin-right: 20px;
 }
 
 .tinder.itsAMatch.photo.user {
     background-size: 50% 50%;
     background-color: #ECECEC;
+    background-image: url('/assets/img/icons/user.png');
 }
 
+.tinder.itsAMatch.super-like {
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+    background-image: url('/assets/img/icons/super-like-border.png');
+    background-size: contain;
+    vertical-align: top;
+    margin-top: 30px;
+}
 
 .ui.modal.profile {
-    overflow:hidden;
+    overflow: hidden;
 }
 
 .ui.modal.profile .content {
@@ -406,7 +416,6 @@ body {
     margin: 10px 0px 0px 0px;
     padding: 0;
 }
-
 
 @media only screen and (min-width: 1920px) {
     .ui.tiny.modal {
