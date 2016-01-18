@@ -39,10 +39,23 @@ Template.modal.onRendered(function() {
 ***************************/
 Template.modalProfile.onRendered(function() {
     Meteor.defer(function(){
-        var swiper = new Swiper('.swiper-container', {
+        var swiperCover = new Swiper('.swiper-container', {
             observer: true,
             autoHeight: true,
             pagination: '.swiper-pagination',
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            slidesPerView: 'auto',
+            paginationClickable: true,
+            spaceBetween: 0,
+            keyboardControl: true,
+            initialSlide: 0
+        });
+
+        var swiperPortfolio = new Swiper('.swiper-container-portfolio', {
+            observer: true,
+            autoHeight: true,
+            pagination: '.swiper-pagination-portfolio',
             nextButton: '.swiper-button-next',
             prevButton: '.swiper-button-prev',
             slidesPerView: 'auto',
@@ -83,5 +96,13 @@ Template.modalProfile.helpers({
         var clone = this.info.profile.images.slice(0);
         var arr = AppUtils.MoveElement(clone, this.image, 0);
         return arr;
+    },
+    chunkedPortfolio: function(){
+        var portfolio = this.info.profile.portfolio;
+        var chunks = [], i = 0, n = portfolio.length, len = 6;
+        while (i < n) {
+            chunks.push(portfolio.slice(i, i += len));
+        }
+        return chunks;
     }
 });

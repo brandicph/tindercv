@@ -1,2 +1,5 @@
 .meteor/local
 .meteor/meteorite
+
+mup.json
+_settings.js

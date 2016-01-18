@@ -56,20 +56,20 @@ Template.stack.events({
     'click .tinder.actions .button .like': function(event, template) {
         _STACKBUILDER.like();
     },
+    'click .tinder.actions .button .remove': function(event, template) {
+        _STACKBUILDER.dislike();
+    },
     'throwout': function(event, template, card) {
         if (!card.like)
             return;
 
-        var _self = this;
+        var data = Template.currentData();
         // IT'S DEFINITELY A MATCH!!
         // just wait a little to give a real-life experience
         // ... and to prevent the swing effect to collide with the modal effect (=lagging)
         setTimeout(function() {
-            AppUtils.ShowMatch(card.id, _self, card.superlike);
+            AppUtils.ShowMatch(card.id, data, card.superlike);
         }, 500);
-    },
-    'click .tinder.actions .button .remove': function(event, template) {
-        _STACKBUILDER.dislike();
     },
     'onresize .tinder .card, onload .tinder .card': function(event, template) {
         // MMM... delicious width/height calculations
@@ -96,7 +96,8 @@ Template.stack.events({
     'click .tinder.card .photo': function(event, template) {
         var target = $(event.currentTarget);
         var imageId = target.data('id');
-        AppUtils.ShowProfile(imageId, this);
+        var data = Template.currentData();
+        AppUtils.ShowProfile(imageId, data);
     }
 });
 

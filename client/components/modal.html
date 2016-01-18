@@ -59,7 +59,29 @@
     <div class="ui divider nm"></div>
 
     <div class="content">
-        <div class="ui tiny header">{{info.profile.fields.length}} Common Fields</div>
+        <div class="swiper-container-portfolio">
+            <div class="ui tiny header">
+                {{info.profile.portfolio.length}} Portfolio Items
+                <div class="swiper-pagination-portfolio"></div>
+            </div>
+            <div class="swiper-wrapper">
+                {{#each chunkedPortfolio}}
+                    <div class="swiper-slide ui three column grid padded">
+                        {{#each this}}
+                            <div class="column portfolio left floated">
+                                <div class="item" style="background-image:url('{{this.images.[0]}}');" title="{{this.title}}"></div>
+                            </div>
+                        {{/each}}
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+    <div class="ui divider nm"></div>
+
+    <div class="content">
+        <div class="ui tiny header">{{info.profile.fields.length}} Study Fields</div>
         {{#each info.profile.fields}}
             <div class="tinder label">{{this}}</div>
         {{/each}}
@@ -73,6 +95,7 @@
             <div class="tinder label">{{this}}</div>
         {{/each}}
     </div>
+
 </template>
 
 <template name="modal">
