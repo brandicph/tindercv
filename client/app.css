@@ -18,15 +18,10 @@ body {
     margin: 15px;
 }
 
-.tinder.stack {
-    width: 100%;
-    height: 590px;
-    /* background: #f3f3f3; */
-    border-radius: 10px;
-    margin-bottom: 15px;
-    position: relative;
-}
 
+/**********************
+- LOADING RADAR
+**********************/
 .tinder.radar {
     width: 100%;
     height: auto;
@@ -121,6 +116,41 @@ body {
     background-color:#FEC2B8;
 }
 
+
+/**********************
+- STACK & LAYER EFFECT
+**********************/
+.tinder.stack {
+    width: 100%;
+    height: 590px;
+    /* background: #f3f3f3; */
+    border-radius: 10px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.tinder.stack .card.in-deck:nth-child(3) {
+    top: 0px;
+    /* width:100%; left:0; */
+    /* transform: translate(2px, 2px) rotate(0.4deg); */
+}
+
+.tinder.stack .card.in-deck:nth-child(2) {
+    top: 4px;
+    /* width:95%; left:2.5%; */
+    /* transform: translate(-4px, -2px) rotate(-1deg); */
+}
+
+.tinder.stack .card.in-deck:nth-child(1) {
+    top: 8px;
+    /* width:90%; left:5%; */
+    /* transform: translate(-4px, -2px) rotate(-1deg); */
+}
+
+
+/**********************
+- CARD
+**********************/
 .tinder.stack .card {
     width: 100%;
     height: auto;
@@ -191,6 +221,10 @@ body {
     padding: 0;
 }
 
+
+/**********************
+- ACTION & BUTTONS
+**********************/
 .tinder.actions {
     width: 100%;
     display: inline-block;
@@ -286,24 +320,10 @@ body {
     transform: scale(0.80);
 }
 
-.tinder.viewport div.in-deck:nth-child(3) {
-    top: 0px;
-    /* width:100%; left:0; */
-    /* transform: translate(2px, 2px) rotate(0.4deg); */
-}
 
-.tinder.viewport div.in-deck:nth-child(2) {
-    top: 4px;
-    /* width:95%; left:2.5%; */
-    /* transform: translate(-4px, -2px) rotate(-1deg); */
-}
-
-.tinder.viewport div.in-deck:nth-child(1) {
-    top: 8px;
-    /* width:90%; left:5%; */
-    /* transform: translate(-4px, -2px) rotate(-1deg); */
-}
-
+/**********************
+- IT'S A MATCH MODAL
+**********************/
 .ui.basic.modal.itsAMatch .content.centered {
     text-align: center;
 }
@@ -371,6 +391,10 @@ body {
     margin-top: 30px;
 }
 
+
+/**********************
+- PROFILE MODAL
+**********************/
 .ui.modal.profile {
     overflow: hidden;
 }
@@ -419,6 +443,10 @@ body {
     padding: 0;
 }
 
+
+/**********************
+- SEMANTIC UI - TINY MODAL
+**********************/
 @media only screen and (min-width: 1920px) {
     .ui.tiny.modal {
         width: 380px;
@@ -445,4 +473,55 @@ body {
         width: 90%;
         margin: 0em 0em 0em -45%;
     }
+}
+
+
+/**********************
+- SWIPER
+**********************/
+.swiper-wrapper {
+    box-sizing: border-box;
+    z-index: 0;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 300px;
+    z-index:0;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    background-position: center;
+    background-size: cover;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+
+}
+
+.swiper-pagination-bullet-active {
+    background: #FC735D;
+}
+
+.swiper-button-next.swiper-button-red,
+.swiper-container-rtl .swiper-button-prev.swiper-button-red {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%230F647D'%2F%3E%3C%2Fsvg%3E")
+}
+
+.swiper-button-prev.swiper-button-red,
+.swiper-container-rtl .swiper-button-next.swiper-button-red {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%230F647D'%2F%3E%3C%2Fsvg%3E")
 }

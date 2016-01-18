@@ -1,3 +1,6 @@
+/**************************
+- PARENT TEMPLATE ONRENDERED 
+***************************/
 Template.modal.onRendered(function() {
     var _self = this;
     var modal = $(this.firstNode);
@@ -30,10 +33,10 @@ Template.modal.onRendered(function() {
     modal.modal('show');
 });
 
-Template.modal.onDestroyed(function() {
 
-});
-
+/**************************
+- CHILD TEMPLATE ONRENDERED 
+***************************/
 Template.modalProfile.onRendered(function() {
     Meteor.defer(function(){
         var swiper = new Swiper('.swiper-container', {
@@ -52,18 +55,29 @@ Template.modalProfile.onRendered(function() {
 });
 
 
+/**************************
+- CHILD TEMPLATE EVENTS 
+***************************/
 Template.modalProfile.events({
     'click .swiper-container': function(event, template){
         $('.modal.profile').modal('hide');
     }
 });
 
+
+/**************************
+- IT'S A MATCH TEMPLATE HELPERS 
+***************************/
 Template.modalItsAMatch.helpers({
     currentImage: function(){
         return this.info.profile.images[this.image];
     }
 });
 
+
+/**************************
+- PROFILE TEMPLATE HELPERS 
+***************************/
 Template.modalProfile.helpers({
     orderedImages: function(){
         var clone = this.info.profile.images.slice(0);
