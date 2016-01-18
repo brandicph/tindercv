@@ -43,8 +43,35 @@
         <h2 class="info">{{this}}</h2> {{/each}}
         <h3 class="distance">near {{info.profile.address.city}}</h3>
     </div>
-    <div class="content centered">
+    <div class="content">
         {{{info.profile.description}}}
+    </div>
+
+    <div class="ui divider nm"></div>
+
+    <div class="content">
+        <div class="ui tiny header">{{info.profile.skills.length}} Common Skills</div>
+        {{#each info.profile.skills}}
+            <div class="tinder label">{{this}}</div>
+        {{/each}}
+    </div>
+
+    <div class="ui divider nm"></div>
+
+    <div class="content">
+        <div class="ui tiny header">{{info.profile.fields.length}} Common Fields</div>
+        {{#each info.profile.fields}}
+            <div class="tinder label">{{this}}</div>
+        {{/each}}
+    </div>
+
+    <div class="ui divider nm"></div>
+
+    <div class="content">
+        <div class="ui tiny header">{{info.profile.languages.length}} Languages</div>
+        {{#each info.profile.languages}}
+            <div class="tinder label">{{this}}</div>
+        {{/each}}
     </div>
 </template>
 

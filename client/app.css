@@ -221,6 +221,27 @@ body {
     padding: 0;
 }
 
+/**********************
+- LABELS AND DIVIDERS
+**********************/
+
+.tinder.label {
+    display: inline-block;
+    padding: 3px 5px;
+    margin: 2px 4px 2px 0px;
+
+    font-family: 'Varela Round', sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 100;
+
+    color: #FF6B6B;
+    background-color: #FFFFFF;
+    border: 1px solid #FF6B6B;
+    border-radius: 5px;
+}
+
 
 /**********************
 - ACTION & BUTTONS
@@ -402,6 +423,17 @@ body {
 .ui.modal.profile .content {
     color: #827F7C;
     font-family: 'Varela Round', sans-serif;
+}
+
+.ui.modal.profile .tiny.header {
+    font-size: 12px;
+    border-bottom: none;
+    color: #454447;
+    font-family: 'Varela Round', sans-serif;
+}
+
+.ui.divider.nm {
+    margin: 0px;
 }
 
 .ui.modal.profile h1.name {
