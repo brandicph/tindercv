@@ -2,9 +2,9 @@
     <div class="header">
         It's a Match
         {{#if superlike}}
-            <div class="sub">You and {{info.profile.name}} super liked each other.</div>
+            <div class="sub">You and {{info.profile.firstname}} super liked each other.</div>
         {{else}}
-            <div class="sub">You and {{info.profile.name}} liked each other.</div>
+            <div class="sub">You and {{info.profile.firstname}} liked each other.</div>
         {{/if}}
     </div>
     <div class="content centered">
@@ -18,10 +18,10 @@
     </div>
     <div class="actions">
         <div data-id="{{image}}" class="fluid ui large button inverted approve">
-            <i class="comment icon"></i> Send a Message
+            <i class="user icon"></i> View Match
         </div>
         <div class="fluid ui large button inverted cancel">
-            <i class="user icon"></i> Keep on Playing
+            <i class="heart icon"></i> Keep on Playing
         </div>
     </div>
 </template>
@@ -50,9 +50,31 @@
     <div class="ui divider nm"></div>
 
     <div class="content">
+        <div class="ui tiny header">{{info.profile.education.length}} Educations</div>
+        {{#each info.profile.education}}
+            <div class="education item">
+                <div class="title">{{this.title}}</div>
+                <div class="specialization">{{this.specialization}}</div>
+                <div class="institution">{{this.institution}}</div>
+            </div>
+        {{/each}}
+    </div>
+
+    <div class="ui divider nm"></div>
+
+    <div class="content">
+        <div class="ui tiny header">{{info.profile.fields.length}} Fields of Study</div>
+        {{#each info.profile.fields}}
+            <div class="tinder label">{{this}}</div>
+        {{/each}}
+    </div>
+
+    <div class="ui divider nm"></div>
+
+    <div class="content">
         <div class="swiper-container-skills">
             <div class="ui tiny header">
-                {{info.profile.skills.length}} Common Skills
+                {{info.profile.skills.length}} Selected Skills
                 <div class="swiper-pagination-skills"></div>
             </div>
             <div class="swiper-wrapper">
@@ -97,19 +119,17 @@
     <div class="ui divider nm"></div>
 
     <div class="content">
-        <div class="ui tiny header">{{info.profile.fields.length}} Study Fields</div>
-        {{#each info.profile.fields}}
-            <div class="tinder label">{{this}}</div>
-        {{/each}}
-    </div>
-
-    <div class="ui divider nm"></div>
-
-    <div class="content">
         <div class="ui tiny header">{{info.profile.languages.length}} Languages</div>
-        {{#each info.profile.languages}}
-            <div class="tinder label">{{this}}</div>
-        {{/each}}
+        <div class="ui three column grid padded">
+            {{#each info.profile.languages}}
+                <div class="column skills left floated">
+                    <div class="item">
+                        <div class="badge circular" style="background-image:url('{{this.image}}');"></div>
+                        <div class="text">{{this.name}}</div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
     </div>
 
 </template>
