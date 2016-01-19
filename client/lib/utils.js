@@ -87,6 +87,114 @@
                     image: imageid
                 }
             });
+        },
+        Constants: {
+            Skills: {
+                ALTERA: {
+                    name: "ALTERA/VHDL", 
+                    image: "/assets/img/skills/altera.png"
+                },
+                ANDROID: {
+                    name: "Android", 
+                    image: "/assets/img/skills/android.png"
+                },
+                ANGULAR: {
+                    name: "Angular", 
+                    image: "/assets/img/skills/angular.png"
+                },
+                ASM: {
+                    name: "Assembler", 
+                    image: "/assets/img/skills/asm.png"
+                },
+                CSS: {
+                    name: "CSS/CSS3", 
+                    image: "/assets/img/skills/css.png"
+                },
+                GIT: {
+                    name: "Git", 
+                    image: "/assets/img/skills/git.png"
+                },
+                HTML5: {
+                    name: "HTML/HTML5", 
+                    image: "/assets/img/skills/html5.png"
+                },
+                JAVA: {
+                    name: "Java", 
+                    image: "/assets/img/skills/java.png"
+                },
+                JAVASCRIPT: {
+                    name: "Javascript", 
+                    image: "/assets/img/skills/javascript.png"
+                },
+                MAINFRAME: {
+                    name: "Mainframe/DB2", 
+                    image: "/assets/img/skills/ibm.png"
+                },
+                METEOR: {
+                    name: "Meteor", 
+                    image: "/assets/img/skills/meteor.png"
+                },
+                MONGODB: {
+                    name: "MongoDB/NoSQL", 
+                    image: "/assets/img/skills/mongodb.png"
+                },
+                CCPP: {
+                    name: "C/C++", 
+                    image: "/assets/img/skills/ccpp.png"
+                },
+                DOTNET: {
+                    name: "C#/.NET", 
+                    image: "/assets/img/skills/dotnet.png"
+                },
+                NODEJS: {
+                    name: "NodeJS", 
+                    image: "/assets/img/skills/nodejs.png"
+                },
+                OPNET: {
+                    name: "OPNET", 
+                    image: "/assets/img/skills/opnet.png"
+                },
+                PHP: {
+                    name: "PHP", 
+                    image: "/assets/img/skills/php.png"
+                },
+                PROLOG: {
+                    name: "Prolog", 
+                    image: "/assets/img/skills/prolog.png"
+                },
+                RAILS: {
+                    name: "Rails", 
+                    image: "/assets/img/skills/rails.png"
+                },
+                RUBY: {
+                    name: "Ruby", 
+                    image: "/assets/img/skills/ruby.png"
+                },
+                MSSQL: {
+                    name: "MSSQL/SQL", 
+                    image: "/assets/img/skills/mssql.png"
+                },
+                SUBVERSION: {
+                    name: "Subversion", 
+                    image: "/assets/img/skills/subversion.png"
+                },
+                UNITY: {
+                    name: "Unity", 
+                    image: "/assets/img/skills/unity.png"
+                },
+                TFS: {
+                    name: "TFS/Visual Studio", 
+                    image: "/assets/img/skills/vs.png"
+                },
+                REDIS: {
+                    name: "Redis", 
+                    image: "/assets/img/skills/redis.png"
+                },
+                XILINX: {
+                    name: "Xilinx/Altera/VHDL", 
+                    image: "/assets/img/skills/vhdl.png"
+                }
+            }
         }
     };
 

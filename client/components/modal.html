@@ -55,8 +55,8 @@
             {{#each info.profile.skills}}
                 <div class="column skills left floated">
                     <div class="item">
-                        <div class="badge circular" style="background-image:url('/assets/img/skills/angular.png');"></div>
-                        <div class="text">{{this}}</div>
+                        <div class="badge circular" style="background-image:url('{{this.image}}');"></div>
+                        <div class="text">{{this.name}}</div>
                     </div>
                 </div>
             {{/each}}
