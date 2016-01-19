@@ -51,9 +51,16 @@
 
     <div class="content">
         <div class="ui tiny header">{{info.profile.skills.length}} Common Skills</div>
-        {{#each info.profile.skills}}
-            <div class="tinder label">{{this}}</div>
-        {{/each}}
+        <div class="ui three column grid padded">
+            {{#each info.profile.skills}}
+                <div class="column skills left floated">
+                    <div class="item">
+                        <div class="badge circular" style="background-image:url('/assets/img/skills/angular.png');"></div>
+                        <div class="text">{{this}}</div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
     </div>
 
     <div class="ui divider nm"></div>
