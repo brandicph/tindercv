@@ -517,7 +517,8 @@ body {
     height: 90px;
     width: 90px;
 
-    background-size: cover;
+    /* background-size: cover; */
+    background-size: 75%;
     background-repeat: no-repeat;
     background-position: center center;
     /* Center slide text vertically */
@@ -638,11 +639,14 @@ body {
 }
 
 
-.swiper-pagination-portfolio {
+.swiper-pagination-portfolio,
+.swiper-pagination-skills {
     display: inline-block;
     float: right;
 }
 
-.swiper-pagination-portfolio .swiper-pagination-bullet {
+.swiper-pagination-portfolio .swiper-pagination-bullet,
+.swiper-pagination-skills .swiper-pagination-bullet {
     margin-left: 7px;
 }
+

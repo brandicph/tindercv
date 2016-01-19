@@ -50,16 +50,25 @@
     <div class="ui divider nm"></div>
 
     <div class="content">
-        <div class="ui tiny header">{{info.profile.skills.length}} Common Skills</div>
-        <div class="ui three column grid padded">
-            {{#each info.profile.skills}}
-                <div class="column skills left floated">
-                    <div class="item">
-                        <div class="badge circular" style="background-image:url('{{this.image}}');"></div>
-                        <div class="text">{{this.name}}</div>
+        <div class="swiper-container-skills">
+            <div class="ui tiny header">
+                {{info.profile.skills.length}} Common Skills
+                <div class="swiper-pagination-skills"></div>
+            </div>
+            <div class="swiper-wrapper">
+                {{#each chunkedSkills}}
+                    <div class="swiper-slide ui three column grid padded">
+                        {{#each this}}
+                            <div class="column skills left floated">
+                                <div class="item">
+                                    <div class="badge" style="background-image:url('{{this.image}}');"></div>
+                                    <div class="text">{{this.name}}</div>
+                                </div>
+                            </div>
+                        {{/each}}
                     </div>
-                </div>
-            {{/each}}
+                {{/each}}
+            </div>
         </div>
     </div>
 

@@ -64,6 +64,19 @@ Template.modalProfile.onRendered(function() {
             keyboardControl: true,
             initialSlide: 0
         });
+
+        var swiperSkills = new Swiper('.swiper-container-skills', {
+            observer: true,
+            autoHeight: true,
+            pagination: '.swiper-pagination-skills',
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            slidesPerView: 'auto',
+            paginationClickable: true,
+            spaceBetween: 0,
+            keyboardControl: true,
+            initialSlide: 0
+        });
     });
 });
 
@@ -97,12 +110,10 @@ Template.modalProfile.helpers({
         var arr = AppUtils.MoveElement(clone, this.image, 0);
         return arr;
     },
+    chunkedSkills: function(){
+        return AppUtils.ChunkArray(this.info.profile.skills, 6);
+    }, 
     chunkedPortfolio: function(){
-        var portfolio = this.info.profile.portfolio;
-        var chunks = [], i = 0, n = portfolio.length, len = 6;
-        while (i < n) {
-            chunks.push(portfolio.slice(i, i += len));
-        }
-        return chunks;
+        return AppUtils.ChunkArray(this.info.profile.portfolio, 6);
     }
 });
