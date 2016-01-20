@@ -416,16 +416,19 @@ body {
 /**********************
 - PROFILE MODAL
 **********************/
-.ui.modal.profile {
+.ui.modal.profile,
+.ui.modal.portfolio {
     overflow: hidden;
 }
 
-.ui.modal.profile .content {
+.ui.modal.profile .content,
+.ui.modal.portfolio .content {
     color: #827F7C;
     font-family: 'Varela Round', sans-serif;
 }
 
-.ui.modal.profile .tiny.header {
+.ui.modal.profile .tiny.header,
+.ui.modal.portfolio .tiny.header {
     font-size: 12px;
     border-bottom: none;
     color: #454447;
@@ -436,7 +439,8 @@ body {
     margin: 0px;
 }
 
-.ui.modal.profile h1.name {
+.ui.modal.profile h1.name,
+.ui.modal.portfolio h1.name {
     color: #454447;
     font-family: 'Varela Round', sans-serif;
     font-size: 19px;
@@ -451,7 +455,8 @@ body {
     font-weight: 100;
 }
 
-.ui.modal.profile h2.info {
+.ui.modal.profile h2.info,
+.ui.modal.portfolio h2.info {
     color: #827F7C;
     font-family: 'Varela Round', sans-serif;
     font-size: 13px;
@@ -475,13 +480,15 @@ body {
     padding: 0;
 }
 
-.ui.modal.profile .column.portfolio {
+.ui.modal.profile .column.portfolio,
+.ui.modal.portfolio .column.portfolio {
     height: 100px;
 
     padding: 5px;
 }
 
-.ui.modal.profile .column.portfolio .item {
+.ui.modal.profile .column.portfolio .item,
+.ui.modal.portfolio .column.portfolio .item {
     width: 100%;
     height: 100%;
 
@@ -503,17 +510,20 @@ body {
 }
 
 
-.ui.modal.profile .column.skills {
+.ui.modal.profile .column.skills,
+.ui.modal.portfolio .column.skills {
     padding: 5px;
 }
 
-.ui.modal.profile .column.skills .item {
+.ui.modal.profile .column.skills .item,
+.ui.modal.portfolio .column.skills .item {
     height:auto;
     width:auto;
     display: inline-block;
 }
 
-.ui.modal.profile .column.skills .item .badge {
+.ui.modal.profile .column.skills .item .badge,
+.ui.modal.portfolio .column.skills .item .badge {
     height: 80px;
     width: 80px;
 
@@ -533,11 +543,13 @@ body {
     align-items: center;
 }
 
-.ui.modal.profile .column.skills .item .badge.circular {
+.ui.modal.profile .column.skills .item .badge.circular,
+.ui.modal.portfolio .column.skills .item .badge.circular {
     border-radius: 100%;
 }
 
-.ui.modal.profile .column.skills .item .text {
+.ui.modal.profile .column.skills .item .text,
+.ui.modal.portfolio .column.skills .item .text {
     height:auto;
     width:100%;
 
@@ -644,7 +656,8 @@ body {
 }
 
 
-.swiper-container {
+.swiper-container,
+.swiper-container-contain {
     width: 100%;
     height: 300px;
     z-index:0;
@@ -656,6 +669,7 @@ body {
     background: #fff;
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
     /* Center slide text vertically */
     display: -webkit-box;
     display: -ms-flexbox;
@@ -669,7 +683,11 @@ body {
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
+}
 
+.swiper-slide-contain {
+    background-size: contain;
+    background-color: #F5F5F5;
 }
 
 .swiper-pagination-bullet-active {
@@ -687,12 +705,14 @@ body {
 }
 
 
+.swiper-pagination-technologies,
 .swiper-pagination-portfolio,
 .swiper-pagination-skills {
     display: inline-block;
     float: right;
 }
 
+.swiper-pagination-technologies .swiper-pagination-bullet,
 .swiper-pagination-portfolio .swiper-pagination-bullet,
 .swiper-pagination-skills .swiper-pagination-bullet {
     margin-left: 7px;

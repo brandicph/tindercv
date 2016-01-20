@@ -65,6 +65,9 @@
                     onDeny: function($element) {
                         // just go back to the stack if 'Keep on Playing'
                         return true;
+                    },
+                    onHide: function(){
+
                     }
                 },
                 data: {
@@ -87,12 +90,38 @@
                     onDeny: function($element) {
                         // not much here since we dont use the actions
                         return true;
+                    },
+                    onHide: function(){
+
                     }
                 },
                 data: {
                     info: data,
                     image: imageid
                 }
+            });
+        },
+        ShowPortfolio: function(data) {
+            $('.modal.profile').removeClass('active visible').hide();
+            AppUtils.OpenModal({
+                modal: {
+                    template: 'modalPortfolio',
+                    classes: 'tiny portfolio',
+                    context: '#container',
+                    onApprove: function($element) {
+                        // not much here since we dont use the actions
+                        return true;
+                    },
+                    onDeny: function($element) {
+                        // not much here since we dont use the actions
+                        return true;
+                    },
+                    onHide: function(){
+                        $('.modal.profile').addClass('active visible').show();
+                        $('.modal.profile').modal('show').modal('refresh');
+                    }
+                },
+                data: data
             });
         }
     };

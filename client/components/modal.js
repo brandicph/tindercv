@@ -10,6 +10,7 @@ Template.modal.onRendered(function() {
         autofocus: false,
         observeChanges: true,
         detachable: true,
+        allowMultiple: true,
         onApprove: _self.data.modal.onApprove,
         onDeny: _self.data.modal.onDeny,
         onShow: function() {
@@ -20,9 +21,7 @@ Template.modal.onRendered(function() {
             $(_self.data.modal.context).addClass('dimmed');
             modal.modal('refresh');
         },
-        onHide: function() {
-
-        },
+        onHide: _self.data.modal.onHide,
         onHidden: function() {
             // Destroy modal after hide transition
             Blaze.remove(_self.view);
@@ -35,9 +34,11 @@ Template.modal.onRendered(function() {
 
 
 /**************************
-- CHILD TEMPLATE ONRENDERED 
+- PROFILE TEMPLATE ONRENDERED 
 ***************************/
 Template.modalProfile.onRendered(function() {
+
+    // Meteor.defer will ensure that the DOM is ready-ready
     Meteor.defer(function(){
         var swiperCover = new Swiper('.swiper-container', {
             observer: true,
@@ -82,11 +83,77 @@ Template.modalProfile.onRendered(function() {
 
 
 /**************************
-- CHILD TEMPLATE EVENTS 
+- PROFILE TEMPLATE EVENTS 
 ***************************/
 Template.modalProfile.events({
     'click .swiper-container': function(event, template){
         $('.modal.profile').modal('hide');
+    },
+    'click .portfolio .item': function(event, template){
+        AppUtils.ShowPortfolio(this);
+    }
+});
+
+/**************************
+- PROFILE TEMPLATE HELPERS 
+***************************/
+Template.modalProfile.helpers({
+    orderedImages: function(){
+        var clone = this.info.profile.images.slice(0);
+        var arr = AppUtils.MoveElement(clone, this.image, 0);
+        return arr;
+    },
+    chunkedTechnologies: function(){
+        return AppUtils.ChunkArray(this.info.profile.technologies, 6);
+    }, 
+    chunkedPortfolio: function(){
+        return AppUtils.ChunkArray(this.info.profile.portfolio, 6);
+    }
+});
+
+
+/**************************
+- PROFILE TEMPLATE ONRENDERED 
+***************************/
+Template.modalPortfolio.onRendered(function() {
+
+    // Meteor.defer will ensure that the DOM is ready-ready
+    Meteor.defer(function(){
+        var swiperCover = new Swiper('.swiper-container-contain', {
+            observer: true,
+            autoHeight: true,
+            pagination: '.swiper-pagination-contain',
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            slidesPerView: 'auto',
+            paginationClickable: true,
+            spaceBetween: 0,
+            keyboardControl: true,
+            initialSlide: 0
+        });
+
+        var swiperSkills = new Swiper('.swiper-container-technologies', {
+            observer: true,
+            autoHeight: true,
+            pagination: '.swiper-pagination-technologies',
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            slidesPerView: 'auto',
+            paginationClickable: true,
+            spaceBetween: 0,
+            keyboardControl: true,
+            initialSlide: 0
+        });
+    });
+});
+
+
+/**************************
+- PORTFOLIO TEMPLATE HELPERS 
+***************************/
+Template.modalPortfolio.helpers({
+    chunkedTechnologies: function(){
+        return AppUtils.ChunkArray(this.technologies, 6);
     }
 });
 
@@ -100,20 +167,3 @@ Template.modalItsAMatch.helpers({
     }
 });
 
-
-/**************************
-- PROFILE TEMPLATE HELPERS 
-***************************/
-Template.modalProfile.helpers({
-    orderedImages: function(){
-        var clone = this.info.profile.images.slice(0);
-        var arr = AppUtils.MoveElement(clone, this.image, 0);
-        return arr;
-    },
-    chunkedSkills: function(){
-        return AppUtils.ChunkArray(this.info.profile.skills, 6);
-    }, 
-    chunkedPortfolio: function(){
-        return AppUtils.ChunkArray(this.info.profile.portfolio, 6);
-    }
-});

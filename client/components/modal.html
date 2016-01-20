@@ -26,6 +26,76 @@
     </div>
 </template>
 
+<template name="modalPortfolio">
+    <i class="close icon"></i>
+    <div class="ui fluid image">
+        <div class="swiper-container-contain">
+            <div class="swiper-wrapper">
+                {{#each images}}
+                <div class="swiper-slide swiper-slide-contain" style="background-image:url('{{this}}')"></div>
+                {{/each}}
+            </div>
+            <div class="swiper-pagination swiper-pagination-contain"></div>
+        </div>
+    </div>
+    <div class="header">
+        <h1 class="name">{{title}}</h1>
+        <h2 class="info">{{subtitle}}</h2>
+    </div>
+    <div class="content">
+        {{{description}}}
+    </div>
+
+{{!-- 
+    <div class="ui divider nm"></div>
+
+    <div class="content">
+        <div class="ui tiny header">{{info.profile.education.length}} Educations</div>
+        {{#each info.profile.education}}
+            <div class="education item">
+                <div class="title">{{this.title}}</div>
+                <div class="specialization">{{this.specialization}}</div>
+                <div class="institution">{{this.institution}}</div>
+            </div>
+        {{/each}}
+    </div>
+
+    <div class="ui divider nm"></div>
+
+    <div class="content">
+        <div class="ui tiny header">{{fields.length}} Fields of Study</div>
+        {{#each fields}}
+            <div class="tinder label">{{this}}</div>
+        {{/each}}
+    </div>
+--}}
+    <div class="ui divider nm"></div>
+
+    <div class="content">
+        <div class="swiper-container-technologies">
+            <div class="ui tiny header">
+                {{technologies.length}} Used Technologies
+                <div class="swiper-pagination-technologies"></div>
+            </div>
+            <div class="swiper-wrapper">
+                {{#each chunkedTechnologies}}
+                    <div class="swiper-slide ui three column grid padded">
+                        {{#each this}}
+                            <div class="column skills left floated">
+                                <div class="item">
+                                    <div class="badge" style="background-image:url('{{this.image}}');"></div>
+                                    <div class="text">{{this.name}}</div>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+</template>
+
 <template name="modalProfile">
     <i class="close icon"></i>
     <div class="ui fluid image">
@@ -74,11 +144,11 @@
     <div class="content">
         <div class="swiper-container-skills">
             <div class="ui tiny header">
-                {{info.profile.skills.length}} Selected Skills
+                {{info.profile.technologies.length}} Known Technologies
                 <div class="swiper-pagination-skills"></div>
             </div>
             <div class="swiper-wrapper">
-                {{#each chunkedSkills}}
+                {{#each chunkedTechnologies}}
                     <div class="swiper-slide ui three column grid padded">
                         {{#each this}}
                             <div class="column skills left floated">
