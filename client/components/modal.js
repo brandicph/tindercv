@@ -86,7 +86,7 @@ Template.modalProfile.onRendered(function() {
 - PROFILE TEMPLATE EVENTS 
 ***************************/
 Template.modalProfile.events({
-    'click .swiper-container': function(event, template){
+    'click .swiper-container .swiper-slide': function(event, template){
         $('.modal.profile').modal('hide');
     },
     'click .portfolio .item': function(event, template){
@@ -113,7 +113,7 @@ Template.modalProfile.helpers({
 
 
 /**************************
-- PROFILE TEMPLATE ONRENDERED 
+- PORTFOLIO TEMPLATE ONRENDERED 
 ***************************/
 Template.modalPortfolio.onRendered(function() {
 
@@ -145,6 +145,16 @@ Template.modalPortfolio.onRendered(function() {
             initialSlide: 0
         });
     });
+});
+
+
+/**************************
+- PORTFOLIO TEMPLATE EVENTS 
+***************************/
+Template.modalPortfolio.events({
+    'click .swiper-container-contain .swiper-slide': function(event, template){
+        $('.modal.portfolio').modal('hide');
+    }
 });
 
 
