@@ -45,7 +45,7 @@
 
             // #container is our parent node in most cases
             var parentNode = $(params.modal.context)[0];
-            // POKEMON: GOOOO BLAAAZE!!!!
+            // POKÉBALL: GOOOO BLAAAZE!!!!
             Blaze.renderWithData(template, params, parentNode);
         },
         ShowMatch: function(imageid, data, superlike) {
