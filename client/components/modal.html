@@ -28,6 +28,9 @@
 
 <template name="modalPortfolio">
     <i class="close icon"></i>
+
+    <!-- PROJECT IMAGE SLIDER -->
+
     <div class="ui fluid image">
         <div class="swiper-container-contain">
             <div class="swiper-wrapper">
@@ -38,38 +41,23 @@
             <div class="swiper-pagination swiper-pagination-contain"></div>
         </div>
     </div>
+
+    <!-- PROJECT HEADER -->
+
     <div class="header">
         <h1 class="name">{{title}}</h1>
         <h2 class="info">{{subtitle}}</h2>
     </div>
+
+    <!-- PROJECT DESCRIPTION -->
+
     <div class="content">
         {{{description}}}
     </div>
 
-{{!-- 
     <div class="ui divider nm"></div>
 
-    <div class="content">
-        <div class="ui tiny header">{{info.profile.education.length}} Educations</div>
-        {{#each info.profile.education}}
-            <div class="education item">
-                <div class="title">{{this.title}}</div>
-                <div class="specialization">{{this.specialization}}</div>
-                <div class="institution">{{this.institution}}</div>
-            </div>
-        {{/each}}
-    </div>
-
-    <div class="ui divider nm"></div>
-
-    <div class="content">
-        <div class="ui tiny header">{{fields.length}} Fields of Study</div>
-        {{#each fields}}
-            <div class="tinder label">{{this}}</div>
-        {{/each}}
-    </div>
---}}
-    <div class="ui divider nm"></div>
+    <!-- PROJECT TECHNOLOGIES -->
 
     <div class="content">
         <div class="swiper-container-technologies">
@@ -98,26 +86,37 @@
 
 <template name="modalProfile">
     <i class="close icon"></i>
+
+    <!-- PROFILE IMAGE SLIDER -->
+
     <div class="ui fluid image">
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 {{#each orderedImages}}
-                <div class="swiper-slide" style="background-image:url('{{this}}')"></div>
+                <div class="swiper-slide" style="background-image:url('{{this}}');"></div>
                 {{/each}}
             </div>
             <div class="swiper-pagination"></div>
         </div>
     </div>
+
+    <!-- PROFILE HEADER -->
+
     <div class="header">
         <h1 class="name">{{info.profile.firstname}}, <span class="age">{{info.profile.age}}</span></h1> {{#each info.profile.studies}}
         <h2 class="info">{{this}}</h2> {{/each}}
         <h3 class="distance">near {{info.profile.address.city}}</h3>
     </div>
+
+    <!-- PROFILE DESCRIPTION -->
+
     <div class="content">
         {{{info.profile.description}}}
     </div>
 
     <div class="ui divider nm"></div>
+
+    <!-- PROFILE EDUCATION -->
 
     <div class="content">
         <div class="ui tiny header">{{info.profile.education.length}} Educations</div>
@@ -132,6 +131,8 @@
 
     <div class="ui divider nm"></div>
 
+    <!-- PROFILE FIELD OF STUDY / TAGS -->
+
     <div class="content">
         <div class="ui tiny header">{{info.profile.fields.length}} Fields of Study</div>
         {{#each info.profile.fields}}
@@ -140,6 +141,8 @@
     </div>
 
     <div class="ui divider nm"></div>
+
+    <!-- PROFILE TECHNOLOGIES SLIDER -->
 
     <div class="content">
         <div class="swiper-container-skills">
@@ -166,6 +169,8 @@
 
     <div class="ui divider nm"></div>
 
+    <!-- PROFILE PORTFOLIO SLIDER -->
+
     <div class="content">
         <div class="swiper-container-portfolio">
             <div class="ui tiny header">
@@ -177,7 +182,7 @@
                     <div class="swiper-slide ui three column grid padded">
                         {{#each this}}
                             <div class="column portfolio left floated">
-                                <div class="item" style="background-image:url('{{this.images.[0]}}');" title="{{this.title}}"></div>
+                                <div class="item" style="background-image:url('{{this.images.[0]}}'); cursor:pointer;" title="{{this.title}}"></div>
                             </div>
                         {{/each}}
                     </div>
@@ -187,6 +192,8 @@
     </div>
 
     <div class="ui divider nm"></div>
+
+    <!-- PROFILE LANGUAGES -->
 
     <div class="content">
         <div class="ui tiny header">{{info.profile.languages.length}} Languages</div>

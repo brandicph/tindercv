@@ -167,6 +167,7 @@ body {
 }
 
 .tinder.stack .card .photo {
+    cursor:pointer;
     text-align: center;
     font-size: 18px;
     background: #fff;
@@ -287,6 +288,7 @@ body {
 }
 
 .tinder.button .icon {
+    cursor:pointer;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -337,8 +339,14 @@ body {
     transition: all .2s ease-in-out;
 }
 
-.tinder.transition.shrink:hover {
+.tinder.transition.shrink:active {
     transform: scale(0.80);
+}
+
+@media screen and (min-width: 60em) {
+    .tinder.transition.shrink:hover {
+        transform: scale(0.80);
+    }
 }
 
 
