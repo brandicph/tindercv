@@ -7,7 +7,7 @@
             // Opera 8.0+
             var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
             // Firefox 1.0+
-            var isFirefox = typeof InstallTrigger !== 'undefined';
+            var isFirefox = typeof InstallTrigger !== 'undefined' || navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
             // At least Safari 3+: "[object HTMLElementConstructor]"
             var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
             // Internet Explorer 6-11
@@ -15,7 +15,7 @@
             // Edge 20+
             var isEdge = !isIE && !!window.StyleMedia;
             // Chrome 1+
-            var isChrome = !!window.chrome && !!window.chrome.webstore;
+            var isChrome = (!!window.chrome && !!window.chrome.webstore) || navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
             // Blink engine detection
             var isBlink = (isChrome || isOpera) && !!window.CSS;
 
