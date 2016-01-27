@@ -62,14 +62,17 @@
             $(e.target).trigger("throwin");
         };
 
-        var onDragEnd = function(e){
+        var onDragEnd = function(e) {
             var card = $(e.target);
-            $('.photo .like', card).fadeTo(500,0.0);
-            $('.photo .nope', card).fadeTo(500,0.0);
+            // Fade out Like/Nope labels on release card
+            $('.photo .like', card).fadeTo(500, 0.0);
+            $('.photo .nope', card).fadeTo(500, 0.0);
         };
 
-        var onDragMove = function(e){
+        var onDragMove = function(e) {
             var card = $(e.target);
+            // Use the distance/confidence and throw direction
+            // to determine the label opacity
             var distance = e.throwOutConfidence;
             var like = e.throwDirection == gajus.Swing.Card.DIRECTION_RIGHT;
             $('.photo .like', card).css({
@@ -81,8 +84,8 @@
             });
         };
 
-        var orderStackDOM = function(){
-             // Ugly hack to keep track of the correct order when reverting
+        var orderStackDOM = function() {
+            // Ugly hack to keep track of the correct order when reverting
             // Otherwise the cards will overlap incorrectly
             // I might make sense to add the class '.in-deck' but no.. swing is messy
             var res = $cards.sort(function(a, b) {
@@ -90,7 +93,6 @@
                 var contentB = $(b).attr('data-sort');
                 return (contentA < contentB) ? -1 : (contentA > contentB) ? 1 : 0;
             });
-            var cardNumberClasses = ['one', 'two', 'three', 'four', 'five'];
             // replace cards with the sorted cards
             $stack.html(res);
         }
@@ -145,18 +147,17 @@
                 var card = $swing.createCard(elm[0]);
                 elm.addClass('in-deck');
 
-                var likeDiv = $('<div/>', {
+                // Like/Nope labels
+                var likeLabel = $('<div/>', {
                     class: 'like',
                     text: 'Like'
                 });
-
-                var nopeDiv = $('<div/>', {
+                var nopeLabel = $('<div/>', {
                     class: 'nope',
                     text: 'Nope'
                 });
-
-                $('.photo', elm).prepend(likeDiv);
-                $('.photo', elm).prepend(nopeDiv);
+                // Adding labels to card
+                $('.photo', elm).prepend(likeLabel, nopeLabel);
 
                 // Add the nasty data-sort attribute to perform the hack
                 elm.attr('data-sort', _counter);

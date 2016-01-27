@@ -2,7 +2,7 @@
 .wrapper-welcome {
   .position(absolute, 1.25em, auto, auto, 0, 25%);
   padding: 0 1.25rem;
-  z-index: -1;
+  z-index: 2;
 
 
   // Show & hide message on web/desktop
@@ -21,10 +21,12 @@
     & + .description-welcome { margin-top: .5rem; }
 
     a {
+      /*
       color: @color-medium-well;
 
       &:hover { color: darken(@color-well, 10%); }
       &:active { color: @color-well; }
+      */
     }
   }
 }

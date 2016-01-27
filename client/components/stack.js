@@ -36,6 +36,11 @@ Template.stack.onRendered(function() {
                 visibility: 'visible'
             });
         }, 3000);
+
+        var browser = AppUtils.DetectBrowser();
+        if (!browser.chrome && !browser.firefox)
+            AppUtils.ShowBrowserInfo();
+        
     });
 
 

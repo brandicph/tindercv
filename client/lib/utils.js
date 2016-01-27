@@ -3,6 +3,32 @@
     "use strict";
 
     var AppUtils = {
+        DetectBrowser: function(){
+            // Opera 8.0+
+            var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+            // Firefox 1.0+
+            var isFirefox = typeof InstallTrigger !== 'undefined';
+            // At least Safari 3+: "[object HTMLElementConstructor]"
+            var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+            // Internet Explorer 6-11
+            var isIE = /*@cc_on!@*/false || !!document.documentMode;
+            // Edge 20+
+            var isEdge = !isIE && !!window.StyleMedia;
+            // Chrome 1+
+            var isChrome = !!window.chrome && !!window.chrome.webstore;
+            // Blink engine detection
+            var isBlink = (isChrome || isOpera) && !!window.CSS;
+
+            return {
+                opera: isOpera,
+                firefox: isFirefox,
+                safari: isSafari,
+                ie: isIE,
+                edge: isEdge,
+                chrome: isChrome,
+                blink: isBlink
+            };
+        },
         TallestWidestElement: function(selector, calcWidth) {
             // Get an array of all element heights/widths
             var elmsWH = $(selector).map(function() {
@@ -49,6 +75,26 @@
             var parentNode = $(params.modal.context)[0];
             // POKÉBALL: GOOOO BLAAAZE!!!!
             Blaze.renderWithData(template, params, parentNode);
+        },
+        ShowBrowserInfo: function() {
+            AppUtils.OpenModal({
+                modal: {
+                    template: 'modalBrowserInfo',
+                    classes: 'small basic browserInfo',
+                    context: 'body',
+                    onApprove: function($element) {
+                        return true;
+                    },
+                    onDeny: function($element) {
+                        // just go back to the stack if 'Keep on Playing'
+                        return true;
+                    },
+                    onHide: function() {
+
+                    }
+                },
+                data: null
+            });
         },
         ShowMatch: function(imageid, data, superlike) {
             AppUtils.OpenModal({
