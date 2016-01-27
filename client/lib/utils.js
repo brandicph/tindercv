@@ -3,7 +3,7 @@
     "use strict";
 
     var AppUtils = {
-        TallestWidestElement: function(selector, calcWidth){
+        TallestWidestElement: function(selector, calcWidth) {
             // Get an array of all element heights/widths
             var elmsWH = $(selector).map(function() {
                 return calcWidth ? $(this).width() : $(this).height();
@@ -27,8 +27,10 @@
             arr.splice(toIndex, 0, element);
             return arr;
         },
-        ChunkArray: function(arr, len){
-            var chunks = [], i = 0, n = arr.length;
+        ChunkArray: function(arr, len) {
+            var chunks = [],
+                i = 0,
+                n = arr.length;
             while (i < n) {
                 chunks.push(arr.slice(i, i += len));
             }
@@ -66,7 +68,7 @@
                         // just go back to the stack if 'Keep on Playing'
                         return true;
                     },
-                    onHide: function(){
+                    onHide: function() {
 
                     }
                 },
@@ -91,7 +93,7 @@
                         // not much here since we dont use the actions
                         return true;
                     },
-                    onHide: function(){
+                    onHide: function() {
 
                     }
                 },
@@ -116,7 +118,7 @@
                         // not much here since we dont use the actions
                         return true;
                     },
-                    onHide: function(){
+                    onHide: function() {
                         $('.modal.profile').addClass('active visible').show();
                         $('.modal.profile').modal('show').modal('refresh');
                     }
@@ -139,7 +141,15 @@
     $.fn.disableSelection = function() {
         return this
             .attr('unselectable', 'on')
-            .css('user-select', 'none')
+            .css({
+                '-webkit-touch-callout': 'none',
+                '-webkit-user-select': 'none',
+                '-khtml-user-select': 'none',
+                '-moz-user-select': 'none',
+                '-ms-user-select': 'none',
+                'user-select': 'none',
+                '-webkit-tap-highlight-color': 'rgba(0,0,0,0)'
+            })
             .on('selectstart', false);
     };
 })(jQuery);

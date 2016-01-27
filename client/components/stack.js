@@ -74,7 +74,7 @@ Template.stack.events({
     'onresize .tinder .card, onload .tinder .card': function(event, template) {
         // MMM... delicious width/height calculations
         var maxCardPhotoWidth = AppUtils.WidestElement('.tinder .card .photo');
-        $('.tinder .card .photo').css('height', maxCardPhotoWidth);
+        $('.tinder .card .photo').css('height', maxCardPhotoWidth - 2 * 15);
 
         var maxCardHeight = AppUtils.TallestElement('.tinder .card');
         $('.tinder .stack').css('height', maxCardHeight);

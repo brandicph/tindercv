@@ -164,6 +164,7 @@ body {
     box-sizing: border-box;
     cursor: default;
     position: absolute;
+    z-index: 2;
 }
 
 .tinder.stack .card .photo {
@@ -189,6 +190,42 @@ body {
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
+}
+
+.tinder.stack .card .photo .like {
+    font-family: Arial, sans-serif;
+    font-size: 30px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #4CCC93;
+    border: 2px solid #4CCC93;
+    border-radius: 5px;
+    padding: 10px 15px;
+    display: inline-block;
+    position: absolute;
+    left:30px;
+    top: 35px;
+    opacity: 0.0;
+    transform: rotate(-10deg);
+}
+
+.tinder.stack .card .photo .nope {
+    font-family: Arial, sans-serif;
+    font-size: 30px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #FC735D;
+    border: 2px solid #FC735D;
+    border-radius: 5px;
+    padding: 10px 12px;
+    display: inline-block;
+    position: absolute;
+    right:30px;
+    top: 35px;
+    opacity: 0.0;
+    transform: rotate(10deg);
 }
 
 .tinder .card .content {

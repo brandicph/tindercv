@@ -43,6 +43,8 @@
             card.like = like;
             _counter--;
 
+            orderStackDOM();
+
             _self.refill();
 
             $(e.target).trigger("throwout", card);
@@ -55,7 +57,32 @@
             _counter++;
 
             $(e.target).addClass('in-deck');
-            // Ugly hack to keep track of the correct order when reverting
+            orderStackDOM();
+
+            $(e.target).trigger("throwin");
+        };
+
+        var onDragEnd = function(e){
+            var card = $(e.target);
+            $('.photo .like', card).fadeTo(500,0.0);
+            $('.photo .nope', card).fadeTo(500,0.0);
+        };
+
+        var onDragMove = function(e){
+            var card = $(e.target);
+            var distance = e.throwOutConfidence;
+            var like = e.throwDirection == gajus.Swing.Card.DIRECTION_RIGHT;
+            $('.photo .like', card).css({
+                opacity: like ? distance : 0
+            });
+
+            $('.photo .nope', card).css({
+                opacity: !like ? distance : 0
+            });
+        };
+
+        var orderStackDOM = function(){
+             // Ugly hack to keep track of the correct order when reverting
             // Otherwise the cards will overlap incorrectly
             // I might make sense to add the class '.in-deck' but no.. swing is messy
             var res = $cards.sort(function(a, b) {
@@ -63,11 +90,10 @@
                 var contentB = $(b).attr('data-sort');
                 return (contentA < contentB) ? -1 : (contentA > contentB) ? 1 : 0;
             });
+            var cardNumberClasses = ['one', 'two', 'three', 'four', 'five'];
             // replace cards with the sorted cards
             $stack.html(res);
-
-            $(e.target).trigger("throwin");
-        };
+        }
 
         this.superlike = function() {
             if (_counter <= 0)
@@ -119,6 +145,19 @@
                 var card = $swing.createCard(elm[0]);
                 elm.addClass('in-deck');
 
+                var likeDiv = $('<div/>', {
+                    class: 'like',
+                    text: 'Like'
+                });
+
+                var nopeDiv = $('<div/>', {
+                    class: 'nope',
+                    text: 'Nope'
+                });
+
+                $('.photo', elm).prepend(likeDiv);
+                $('.photo', elm).prepend(nopeDiv);
+
                 // Add the nasty data-sort attribute to perform the hack
                 elm.attr('data-sort', _counter);
                 var id = _counter;
@@ -133,6 +172,9 @@
 
             $swing.on('throwout', onThrowOut);
             $swing.on('throwin', onThrowIn);
+
+            $swing.on('dragend', onDragEnd);
+            $swing.on('dragmove', onDragMove);
 
             return _self;
         };
