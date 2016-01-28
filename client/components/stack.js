@@ -40,6 +40,8 @@ Template.stack.onRendered(function() {
         var browser = AppUtils.DetectBrowser();
         if (!browser.chrome && !browser.firefox)
             AppUtils.ShowBrowserInfo();
+
+        analytics.page('Home');
         
     });
 
@@ -54,6 +56,10 @@ Template.stack.onRendered(function() {
 Template.stack.events({
     'click .tinder.actions .button .revert': function(event, template) {
         _STACKBUILDER.revert();
+        analytics.track('Revert', {
+            plan: 'Stack',
+            label: 'Card'
+        });
     },
     'click .tinder.actions .button .super-like': function(event, template){
         _STACKBUILDER.superlike();
@@ -65,8 +71,13 @@ Template.stack.events({
         _STACKBUILDER.dislike();
     },
     'throwout': function(event, template, card) {
-        if (!card.like)
+        if (!card.like){
+            analytics.track('Dislike', {
+                plan: 'Stack',
+                label: 'Card ' + card.id
+            });
             return;
+        }
 
         var data = Template.currentData();
         // IT'S DEFINITELY A MATCH!!
@@ -74,6 +85,11 @@ Template.stack.events({
         // ... and to prevent the swing effect to collide with the modal effect (=lagging)
         setTimeout(function() {
             AppUtils.ShowMatch(card.id, data, card.superlike);
+            
+            analytics.track(card.superlike ? 'Super Like' : 'Like', {
+                plan: 'Stack',
+                label: 'Card ' + card.id
+            });
         }, 500);
     },
     'onresize .tinder .card, onload .tinder .card': function(event, template) {
@@ -103,6 +119,11 @@ Template.stack.events({
         var imageId = target.data('id');
         var data = Template.currentData();
         AppUtils.ShowProfile(imageId, data);
+
+        analytics.track('Stack Item Clicked', {
+            plan: 'Stack',
+            label: 'Card ' + imageId
+        });
     }
 });
 

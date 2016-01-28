@@ -78,6 +78,8 @@ Template.modalProfile.onRendered(function() {
             keyboardControl: true,
             initialSlide: 0
         });
+
+        analytics.page('Profile');
     });
 });
 
@@ -91,6 +93,20 @@ Template.modalProfile.events({
     },
     'click .portfolio .item': function(event, template){
         AppUtils.ShowPortfolio(this);
+        analytics.track('Portfolio Item Clicked', {
+            plan: 'Portfolio',
+            label: this.title
+        });
+    },
+    'click .information.item .link': function(event, template){
+        var target = $(event.currentTarget);
+        analytics.trackLink(target, 'Clicked on Social Media link', {
+          plan: 'Social Media'
+        });
+        analytics.track('Social Media Link', {
+            plan: 'Social Media',
+            label: target.attr('href')
+        });
     }
 });
 
@@ -144,6 +160,8 @@ Template.modalPortfolio.onRendered(function() {
             keyboardControl: true,
             initialSlide: 0
         });
+
+        analytics.page('Portfolio');
     });
 });
 
@@ -175,5 +193,27 @@ Template.modalItsAMatch.helpers({
     currentImage: function(){
         return this.info.profile.images[this.image];
     }
+});
+
+Template.modalItsAMatch.events({
+    'click .ui.large.button.approve': function(event, template){
+        analytics.track('View Match Clicked', {
+            plan: 'Match',
+            label: (this.superlike ? 'Super Liked' : 'Liked') + ' Card ' + this.image
+        });
+    },
+    'click .ui.large.button.cancel': function(event, template){
+        analytics.track('Keep on Playing Clicked', {
+            plan: 'Match',
+            label: (this.superlike ? 'Super Liked' : 'Liked') + ' Card ' + this.image
+        });
+    }
+});
+
+Template.modalItsAMatch.onRendered(function(){
+    // Meteor.defer will ensure that the DOM is ready-ready
+    Meteor.defer(function(){
+        analytics.page('Match');
+    });
 });
 

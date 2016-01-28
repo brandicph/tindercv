@@ -241,18 +241,12 @@
 
     <div class="content">
         <div class="ui tiny header">Further Information...</div>
-        <div class="information item">
-            <div class="title">LinkedIn profile</div>
-            <a class="link" href="{{info.profile.social.linkedin}}">linkedin.com/in/alexanderbrandi</a>
-        </div>
-        <div class="information item">
-            <div class="title">ComputerWorld article</div>
-            <a class="link" href="{{info.profile.social.computerworld}}">computerworld.dk/art/235219</a>
-        </div>
-        <div class="information item">
-            <div class="title">Mobil.nu article</div>
-            <a class="link" href="{{info.profile.social.mobilnu}}">mobil.nu/huawei/danske-talenter...</a>
-        </div>
+        {{#each info.profile.social}}
+            <div class="information item">
+                <div class="title">{{this.title}}</div>
+                <a class="link" href="{{this.url}}" target="_blank">{{this.label}}</a>
+            </div>
+        {{/each}}
     </div>
 
     
